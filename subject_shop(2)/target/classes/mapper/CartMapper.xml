@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="kr.ezen.shop.mapper.CartMapper">
+     <insert id="cartAdd" parameterType="cartDTO">
+        INSERT INTO tbl_cart(id, p_num, p_qty) VALUES(#{id}, #{p_num}, #{p_qty})
+    </insert>
+    <select id="cartList" resultType="cartDTO">
+        SELECT c.c_num, c.id, c.p_num, c.p_qty, p.p_image, p.p_name, p.price, p.p_point, p.p_spec
+        FROM tbl_cart c, product p
+        WHERE c.id = #{id} AND c.p_num = p.p_num
+    </select>
+    <update id="cartModify" parameterType="cartDTO">
+        UPDATE tbl_cart SET p_qty=#{p_qty} WHERE p_num=#{p_num}
+    </update>
+    <delete id="cartDelete" parameterType="Integer">
+        DELETE FROM tbl_cart WHERE p_num=#{p_num}
+    </delete>
+    <select id="cartProdCheck" resultType="cartDTO">
+        SELECT * FROM tbl_cart WHERE p_num=#{p_num}
+    </select>
+    <select id="buyerInfo" resultType="memberDTO">
+        SELECT * FROM shop_member WHERE id=#{id}
+    </select>
+    <delete id="checkoutDelete" parameterType="Integer">
+        DELETE FROM tbl_cart WHERE c_num=#{c_num}
+    </delete>
+</mapper>

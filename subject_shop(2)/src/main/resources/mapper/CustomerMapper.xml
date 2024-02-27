@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="kr.ezen.shop.mapper.CustomerMapper">
+
+    <select id="noticeList" resultType="noticeDTO">
+        SELECT * FROM notice_board
+        ORDER BY bid DESC LIMIT #{startIndex}, #{cntPerPage}
+    </select>
+    <select id="totalNoticeCnt" resultType="Integer">
+        SELECT count(*) from notice_board
+    </select>
+    <select id="questionList" resultType="questionDTO">
+        SELECT * FROM question_board
+        ORDER BY qid DESC LIMIT #{startIndex}, #{cntPerPage}
+    </select>
+    <select id="totalQuesCnt" resultType="Integer">
+        SELECT count(*) from question_board
+    </select>
+    <insert id="quesRegister" parameterType="questionDTO">
+        INSERT INTO question_board(q_subject, q_contents, q_writer)
+        VALUES(#{q_subject},#{q_contents},#{q_writer})
+    </insert>
+    <select id="quesInfo" resultType="questionDTO">
+        SELECT * FROM question_board WHERE qid=#{qid}
+    </select>
+    <update id="quesModify" parameterType="questionDTO">
+        UPDATE question_board SET q_subject=#{q_subject}, q_contents=#{q_contents} WHERE qid=#{qid}
+    </update>
+    <update id="plusHit">
+        UPDATE question_board SET q_hit=q_hit+1 WHERE qid=#{qid}
+    </update>
+    <delete id="questionRemove">
+        DELETE FROM question_board WHERE qid=#{qid}
+    </delete>
+</mapper>

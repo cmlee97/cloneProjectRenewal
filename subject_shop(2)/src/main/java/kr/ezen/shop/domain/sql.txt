@@ -1,0 +1,105 @@
+
+-- 회원
+create table shop_member(
+    no int primary key auto_increment,
+    id varchar(50) not null,
+    pw varchar(200) not null,
+    name varchar(50) not null,
+    -- age int not null,
+    birthday date not null,
+    email varchar(50) not null,
+    tel varchar(30) not null,
+    zipcode varchar(10),
+    road_addr varchar(200),
+    jibun_addr varchar(200),
+    detail_addr varchar(200),
+    unique key(id)
+);
+select * from shop_member;
+-- 관리자
+create table tbl_admin(
+    id varchar(20),
+    password varchar(20) not null,
+    name varchar(20) not null,
+    email varchar(30) not null
+);
+
+drop table tbl_admin;
+insert into tbl_admin values('test', 'test', '홍길동', 'test@gmail.com');
+select * from tbl_admin;
+-- 카테고리
+commit;
+select * from category;
+drop table category;
+create table category(
+    cat_num int auto_increment primary key,
+    code varchar(10) not null,
+    cat_name varchar(20) not null
+);
+-- 제품
+select * from product;
+delete from product;
+drop table product;
+create table product(
+    p_num int auto_increment primary key,
+    p_name varchar(50) not null,
+    p_category_fk varchar(30) not null,
+    p_company varchar(50),
+    p_image varchar(200),
+    p_qty int default 0,
+    price int default 0,
+    p_spec varchar(20),
+    p_content varchar(300),
+    p_point int default 0,
+    p_inputDate datetime default now() not null
+);
+-- 카트
+drop table tbl_cart;
+create table tbl_cart(
+    c_num int auto_increment primary key,
+    id varchar(50),
+    p_num int,
+    p_qty int default 1,
+    inDate datetime default now() not null,
+    foreign key (id) references shop_member(id),
+    foreign key (p_num) references product(p_num)
+);
+select * FROM tbl_cart;
+-- 공지사항 게시판
+create table notice_board(
+	bid int auto_increment primary key,
+    subject varchar(100) not null,
+    contents varchar(3000) not null,
+    hit int default 0,
+    writer varchar(30) not null,
+    reg_date datetime default now() not null
+);
+select * from notice_board;
+drop table question_board;
+
+-- 문의사항 게시판
+create table question_board(
+	qid int auto_increment primary key,
+    q_subject varchar(100) not null,
+    q_contents varchar(3000) not null,
+    q_hit int default 0,
+    q_writer varchar(30) not null,
+    reg_date datetime default now() not null
+);
+select * from question_board;
+-- 문의사항 댓글
+select * from question_reply;
+create table question_reply(
+    rno int auto_increment primary key,
+    qid int,
+    r_contents varchar(1000) not null,
+    replyer varchar(20) not null,
+    r_date datetime default now(),
+    update_date datetime default now(),
+
+    -- question_board의 bid를 외래키로 사용
+    foreign key(qid) references question_board(qid)
+    on delete cascade
+);
+create index idx_qreply on question_reply (qid desc, rno asc);
+drop table question_reply;

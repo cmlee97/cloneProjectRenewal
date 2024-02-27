@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="kr.ezen.shop.mapper.MemberMapper">
+	<insert id="memberRegister" parameterType="memberDTO">
+		INSERT INTO shop_member(id, pw, name, birthday, email, tel, zipcode,
+		road_addr, jibun_addr, detail_addr)
+		VALUES( #{id},
+		#{pw},
+		#{name},
+		#{birthday},
+		#{email},
+		#{tel},
+		#{zipcode},
+		#{road_addr},
+		#{jibun_addr},
+		#{detail_addr}
+		)
+	</insert>
+	<select id="memberLogin" resultType="memberDTO">
+		SELECT id,pw,name FROM shop_member WHERE id=#{id}
+	</select>
+	<select id="idCheck" resultType="memberDTO">
+		SELECT * FROM shop_member WHERE id=#{id}
+	</select>
+	<select id="findId" resultType="String">
+		SELECT IFNULL(id, 0) FROM shop_member WHERE name=#{name} AND tel=#{tel}
+	</select>
+	<update id="findPw" parameterType="Map">
+		UPDATE shop_member SET pw=#{param3} WHERE id=#{param1} AND email=#{param2}
+	</update>
+	<update id="updatePw" parameterType="memberDTO">
+		UPDATE shop_member SET pw=#{pw} WHERE id=#{id}
+	</update>
+</mapper>

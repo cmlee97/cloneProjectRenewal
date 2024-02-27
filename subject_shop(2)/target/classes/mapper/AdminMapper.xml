@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="kr.ezen.shop.mapper.AdminMapper">
+	<!--관리자 로그인-->
+	<select id="loginOk" resultType="adminDTO">
+		SELECT * FROM tbl_admin WHERE id=#{id}
+	</select>
+<!-- 카테고리 -->
+	<insert id="catInput" parameterType="categoryDTO">
+		INSERT INTO category(code, cat_name) VALUES(#{code}, #{cat_name})
+	</insert>
+	<select id="catList" resultType="categoryDTO">
+		SELECT * FROM category
+	</select>
+	<select id="catInfo" resultType="categoryDTO" parameterType="Integer">
+		SELECT * FROM category WHERE cat_num=#{cat_num}
+	</select>
+	<update id="catUpdate" parameterType="categoryDTO">
+		UPDATE category SET code=#{code}, cat_name=#{cat_name} WHERE cat_num=#{cat_num}
+	</update>
+	<delete id="catDelete" parameterType="Integer">
+		DELETE FROM category WHERE cat_num=#{cat_num}
+	</delete>
+	<!--회원-->
+	<select id="memberList" resultType="memberDTO">
+		SELECT m.*, YEAR(now())-LEFT(birthday,4)+1 AS age FROM shop_member m
+		ORDER BY m.no DESC LIMIT #{startIndex}, #{cntPerPage}
+	</select>
+	<select id="totalMemCnt" resultType="Integer">
+		SELECT count(*) FROM shop_member
+	</select>
+	<select id="memberInfo" parameterType="Integer" resultType="memberDTO">
+		SELECT * FROM shop_member WHERE no = #{no}
+	</select>
+	<update id="memberUpdate" parameterType="memberDTO">
+		UPDATE shop_member SET pw=#{pw}, name=#{name}, birthday=#{birthday}, email=#{email}, tel=#{tel},
+		zipcode=#{zipcode}, road_addr=#{road_addr},
+		jibun_addr=#{jibun_addr}, detail_addr=#{detail_addr} WHERE no=#{no}
+	</update>
+	<delete id="deleteMember" parameterType="Integer">
+		DELETE FROM shop_member WHERE no = #{no}
+	</delete>
+	<!--제품-->
+	<select id="totalProdCnt" resultType="Integer">
+		SELECT count(*) FROM product
+	</select>
+	<insert id="prodInput" parameterType="Map">
+		INSERT INTO product(p_name, p_category_fk, p_company, p_image, p_qty, price, p_spec, p_content, p_point)
+		VALUES(#{p_name}, #{p_category_fk}, #{p_company}, #{p_image}, #{p_qty}
+		, #{price}, #{p_spec}, #{p_content}, #{p_point})
+	</insert>
+	<select id="prodList" resultType="productDTO">
+		SELECT * FROM product
+		ORDER BY p_num DESC LIMIT #{startIndex}, #{cntPerPage}
+	</select>
+	<select id="prodInfo" parameterType="Integer" resultType="productDTO">
+		SELECT * FROM product WHERE p_num = #{p_num}
+	</select>
+	<update id="prodUpdate" parameterType="Map">
+		UPDATE product SET p_name=#{p_name}, p_category_fk=#{p_category_fk}, p_company=#{p_company}, p_image=#{p_image},
+		p_qty=#{p_qty}, price=#{price}, p_spec=#{p_spec}, p_content=#{p_content}, p_point=#{p_point} WHERE p_num = #{p_num}
+	</update>
+	<delete id="prodDelete" parameterType="Integer">
+		DELETE FROM product WHERE p_num = #{p_num}
+	</delete>
+
+</mapper>

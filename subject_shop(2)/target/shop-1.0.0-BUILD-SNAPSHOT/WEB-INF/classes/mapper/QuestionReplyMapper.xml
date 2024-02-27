@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="kr.ezen.shop.mapper.QuestionReplyMapper">
+    <insert id="insert" parameterType="questionReplyDTO">
+        INSERT INTO question_reply(qid, r_contents, replyer)
+        VALUES(#{qid},#{r_contents},#{replyer})
+    </insert>
+    <select id="select" resultType="questionReplyDTO">
+        SELECT * FROM question_reply WHERE rno=#{rno}
+    </select>
+    <update id="update">
+        UPDATE question_reply SET r_contents=#{r_contents},
+        update_date = now() WHERE rno=#{rno}
+    </update>
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM question_reply WHERE rno=#{rno}
+    </delete>
+
+    <select id="replyCnt" resultType="int">
+        SELECT count(*) FROM question_reply WHERE qid=#{qid}
+    </select>
+    <select id="getListByQid" resultType="questionReplyDTO">
+        <!--SELECT * FROM tbl_reply WHERE bid = #{bid}-->
+        SELECT * FROM question_reply WHERE qid=#{qid} ORDER BY rno DESC
+        LIMIT #{startIndex}, #{cntPerPage}
+    </select>
+</mapper>
