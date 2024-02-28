@@ -63,7 +63,7 @@ public class MemberServiceImpl implements MemberService {
                 +"<h2>"+tempPw+"</h2>"
                 +"<p>위의 비밀번호를 이용하여 로그인 후 마이페이지에서 변경바랍니다.</p>";
         try {
-            mail.setSubject("ez아카데미 [임시 비밀번호]", "utf-8");
+            mail.setSubject("롯백화점(테스트) [임시 비밀번호]", "utf-8");
             mail.setText(mailContents, "utf-8","html");
             //상대방 메일 셋팅
             mail.addRecipient(Message.RecipientType.TO, new InternetAddress(uEmail));

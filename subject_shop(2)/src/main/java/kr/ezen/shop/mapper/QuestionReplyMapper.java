@@ -16,11 +16,7 @@ public interface QuestionReplyMapper {
     int update(QuestionReplyDTO rDto);
     //댓글 삭제
     int delete(int rno);
-    //특정게시글 전체 댓글 수
-    int replyCnt(int qid);
 
     //게시글별 댓글 리스트
-    List<QuestionReplyDTO> getListByQid(@Param("qid") int qid,
-                                        @Param("startIndex") int si,
-                                        @Param("cntPerPage") int cp);
+    QuestionReplyDTO getListByQid(@Param("qid") int qid);
 }

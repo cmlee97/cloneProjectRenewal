@@ -14,8 +14,8 @@ public class PageDTO {
     private int totalPage;
     private int totalCnt;
     private int startRowNum;
-
-
+    private String ques_option;
+    
     private int startIndex; // 각페이지별 시작값(offset, 0, 10, 20,...)
     private int cntPerPage = 10; // 페이지별 게시글 수
 

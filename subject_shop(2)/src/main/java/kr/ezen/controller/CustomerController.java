@@ -1,9 +1,13 @@
 package kr.ezen.controller;
 
 import kr.ezen.service.CustomerService;
+import kr.ezen.service.ViewService;
+import kr.ezen.shop.domain.CategoryDTO;
 import kr.ezen.shop.domain.NoticeDTO;
 import kr.ezen.shop.domain.PageDTO;
 import kr.ezen.shop.domain.QuestionDTO;
+import kr.ezen.shop.util.QuestionOption;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +24,8 @@ import java.util.List;
 public class CustomerController {
     @Autowired
     private CustomerService service;
+    @Autowired
+    private ViewService viewservice;
 
     @GetMapping("/customerService.do")
     public String customerService(){
@@ -33,15 +39,25 @@ public class CustomerController {
         model.addAttribute("paDto", paDto);
         return "/customerService/csNotice";
     }
+    
+    
     @RequestMapping("/questionList.do")
-    public String questionList(Model model, PageDTO paDto){
+    public String questionList(Model model, @ModelAttribute("paDto") PageDTO paDto, String ques_option){
+//    	System.out.println(paDto.getQues_option()); 
+    	System.out.println(ques_option); 
+    	if(paDto.getQues_option()==null)
+    	paDto.setQues_option("all");
         List<QuestionDTO> list = service.questionList(paDto);
         model.addAttribute("list", list);
         model.addAttribute("paDto", paDto);
+        QuestionOption[] opspec = QuestionOption.values();
+        model.addAttribute("opspec", opspec);
         return "/customerService/csQuestionList";
     }
     @GetMapping("/quesRegister.do")
-    public String quesRegister(){
+    public String quesRegister(Model model){
+    	 QuestionOption[] opspec = QuestionOption.values();
+         model.addAttribute("opspec", opspec);
         return "/customerService/csQuestionReg";
     }
     @PostMapping("/quesRegister.do")
@@ -50,7 +66,7 @@ public class CustomerController {
         return "redirect:/view/questionList.do";
     }
     @RequestMapping("/quesInfo.do")
-    public String quesInfo(int qid, Model model, PageDTO paDto){
+    public String quesInfo(int qid, Model model, PageDTO paDto , String code){
         QuestionDTO qDto = service.quesInfo(qid);
         model.addAttribute("qDto", qDto);
         model.addAttribute("paDto", paDto);

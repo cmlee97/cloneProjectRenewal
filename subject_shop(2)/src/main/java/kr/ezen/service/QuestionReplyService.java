@@ -15,7 +15,6 @@ public interface QuestionReplyService {
     //댓글 삭제
     int remove(int rno);
     //게시글별 댓글리스트
-    ReplyPageDTO getList(int qid, int viewPage);
+    QuestionReplyDTO getList(int qid);
 
-    int replyCnt(int qid);
 }

@@ -1,65 +1,11 @@
 let replyFunc = (() => {
-    // 댓글 등록
-    function register(reply, cb){
-        $.ajax({
-            url:"/shop/replies/new",
-            type:"post",
-            data:JSON.stringify(reply), // JSON객체를 문자열(텍스트) 변환
-            contentType: "application/json; charset=utf8",
-            success:function(result){
-                if(cb){
-                    cb(result);
-                }
-            },
-            error:()=>{alert("요청을 실패하였습니다")}
-        });
-    }
     //댓글 조회
-    function read(rno, cb){
-        $.ajax({
-            url:"/shop/replies/"+rno,
-            type:"get",
-            success:(result)=>{
-                if(cb) cb(result);
-            } ,
-            error : ()=>{
-                alert("요청을 실패하였습니다");
-            }
-        });
-    }
-    //댓글삭제
-    function remove(rno, cb){
-        $.ajax({
-            url: "/shop/replies/"+rno,
-            type:"delete",
-            success:(result)=>{
-                if(cb){
-                    cb(result);
-                }
-            },
-            error:()=>{alert("요청을 실패하였습니다")}
-        });
-    }
-    //댓글 수정
-    function update(reply, cb){
-        $.ajax({
-            url:"/shop/replies/"+reply.rno,
-            type:"put",
-            data:JSON.stringify(reply),
-            contentType: "application/json; charset=utf8",
-            success: (result)=>{
-                if(cb) cb(result);
-            },
-            error: ()=>{alert("요청을 실패하였습니다")}
-        });
-    }
-    //게시물 별 리스트
-    function getList(param, cb){
-        let qid =param.qid;
-        let viewPage = param.viewPage;
 
+    //게시물 별 리스트
+    function getList(param){
+        let qid =param.qid;
         $.ajax({
-            url:"/shop/replies/list/"+qid+'/'+viewPage,
+            url:"/shop/replies/list/"+qid,
             type:"get",
             success: (result)=>{
                 if(cb) cb(result);
@@ -95,10 +41,7 @@ let replyFunc = (() => {
     }
 
     return{
-        register: register,
         read : read,
-        remove: remove,
-        update: update,
         getList: getList,
         showDateTime: showDateTime
     }

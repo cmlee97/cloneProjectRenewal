@@ -13,4 +13,6 @@ public class QuestionDTO {
     private int q_hit;
     private String q_writer;
     private Date reg_date;
+    private String ques_option;
+    private String ques_state;
 }

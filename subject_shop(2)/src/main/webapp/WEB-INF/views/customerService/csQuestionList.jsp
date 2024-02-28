@@ -6,12 +6,22 @@
     color: black;
   }
 </style>
+<input type="hidden" value="${sessionScope.loginDto.id}" id="loginUser"/>
 <div class="container mt-5">
   <h3 class="mb-2 text-center">문의사항</h3>
   <h6 class="mb-4 text-center">빠른 시일 내에 답변드리겠습니다.</h6>
-  
-  
-  
+  <div class="row justify-content-start">
+	  <div class="dropdown">
+	  	<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+	    문의사항 종류
+	  	</button>
+	  	<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+	  		<c:forEach var="opspec" items="${opspec}">
+	    		<li><a class="dropdown-item" href='/view/quesList.do?viewPage=${paDto.viewPage}&cntPerPage=${paDto.cntPerPage}&ques_option=${opspec.name()}'>${opspec.value}</a></li>
+	  		</c:forEach>
+	  	</ul>
+	  </div>
+  </div>
   <table class="table">
     <thead class="table-dark">
     <tr>
@@ -31,7 +41,7 @@
     <c:forEach var="dto" items="${list}">
       <tr>
         <td>${rowNum}</td>
-        <td><a href="<c:url value='/view/quesInfo.do?qid=${dto.qid}&viewPage=${paDto.viewPage}&cntPerPage=${paDto.cntPerPage}'/>"><c:out value="${dto.q_subject}"/></a></td>
+        <td><a href="<c:url value='/view/quesInfo.do?qid=${dto.qid}&viewPage=${paDto.viewPage}&cntPerPage=${paDto.cntPerPage}&ques_option=${paDto.ques_option}'/>"><c:out value="${dto.q_subject}"/></a></td>
         <td>${dto.q_hit}</td>
         <td><c:out value="${dto.q_writer}"/></td>
         <td>${dto.reg_date}</td>
@@ -47,19 +57,19 @@
   </table>
   <ul class="pagination justify-content-center my-5">
     <li class="page-item ${paDto.prevPage <=0 ? 'disabled':''}">
-      <a class="page-link" href="questionList.do?viewPage=${paDto.prevPage}&cntPerPage=${paDto.cntPerPage}">
+      <a class="page-link" href="questionList.do?viewPage=${paDto.prevPage}&cntPerPage=${paDto.cntPerPage}&ques_option=${paDto.ques_option}">
         <i class="fa fa-chevron-left" style="color: #000000;"></i>
       </a>
     </li>
 
     <c:forEach var="i" begin="${paDto.blockStart}" end="${paDto.blockEnd}">
       <li class="page-item ${paDto.viewPage == i ? 'active':''}">
-        <a class="page-link" href="questionList.do?viewPage=${i}&cntPerPage=${paDto.cntPerPage}">${i}</a>
+        <a class="page-link" href="questionList.do?viewPage=${i}&cntPerPage=${paDto.cntPerPage}&ques_option=${paDto.ques_option}">${i}</a>
       </li>
     </c:forEach>
 
     <li class="page-item ${paDto.blockEnd >=paDto.totalPage ? 'disabled':''}">
-      <a class="page-link" href="questionList.do?viewPage=${paDto.nextPage}&cntPerPage=${paDto.cntPerPage}">
+      <a class="page-link" href="questionList.do?viewPage=${paDto.nextPage}&cntPerPage=${paDto.cntPerPage}&ques_option=${paDto.ques_option}">
         <i class="fa fa-chevron-right" style="color: #000000;"></i>
       </a>
     </li>
@@ -68,7 +78,12 @@
 <script>
   $(document).ready(function(){
     $("#btn-write").click(()=>{
-      location.href="<c:url value='/view/quesRegister.do'/>";
+    	let session = document.getElementById('loginUser').value;
+    	if(session==''){
+    		alert("로그인이 필요한 서비스 입니다.");
+    		return;
+    	}
+    	location.href="<c:url value='/view/quesRegister.do'/>";
     })
   });
 

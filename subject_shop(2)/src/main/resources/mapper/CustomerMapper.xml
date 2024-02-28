@@ -14,14 +14,24 @@
     </select>
     <select id="questionList" resultType="questionDTO">
         SELECT * FROM question_board
+        WHERE ques_state="open"
+        <include refid="criteria"></include>
         ORDER BY qid DESC LIMIT #{startIndex}, #{cntPerPage}
     </select>
+    <sql id="criteria">
+    	<if test = "!ques_option.equals('all')">
+    	AND ques_option = #{ques_option}</if>
+    	<if test = "ques_option.equals('all')">
+    	</if>
+    </sql>
     <select id="totalQuesCnt" resultType="Integer">
         SELECT count(*) from question_board
+        WHERE 1=1
+        <include refid="criteria"></include>
     </select>
     <insert id="quesRegister" parameterType="questionDTO">
-        INSERT INTO question_board(q_subject, q_contents, q_writer)
-        VALUES(#{q_subject},#{q_contents},#{q_writer})
+        INSERT INTO question_board(q_subject, q_contents, q_writer, ques_option, ques_state)
+        VALUES(#{q_subject},#{q_contents},#{q_writer}, #{ques_option}, #{ques_state})
     </insert>
     <select id="quesInfo" resultType="questionDTO">
         SELECT * FROM question_board WHERE qid=#{qid}

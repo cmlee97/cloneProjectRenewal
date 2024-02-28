@@ -1,4 +1,4 @@
-
+use testdb;
 -- 회원
 create table shop_member(
     no int primary key auto_increment,
@@ -58,7 +58,7 @@ drop table tbl_cart;
 create table tbl_cart(
     c_num int auto_increment primary key,
     id varchar(50),
-    p_num int,
+    p_num int not null,
     p_qty int default 1,
     inDate datetime default now() not null,
     foreign key (id) references shop_member(id),
@@ -86,9 +86,34 @@ create table question_board(
     q_writer varchar(30) not null,
     reg_date datetime default now() not null
 );
+
+create table question_board(
+	qid int auto_increment primary key,
+    q_subject varchar(100) not null,
+    q_contents varchar(3000) not null,
+    q_hit int default 0,
+    q_writer varchar(30) not null,
+    reg_date datetime default now() not null,
+    ques_option varchar(30) not null,
+    ques_state varchar(30) not null
+);
+drop table question_board;
 select * from question_board;
+
+create table question_answer(
+	rno int auto_increment primary key,
+    qid int,
+    replyer varchar(20) default "관리자",
+    ans_contnets varchar(3000) not null,
+	q_writer varchar(30) not null,
+    anw_reg_date datetime default now() not null,
+    
+	foreign key(qid) references question_board(qid)
+    on delete cascade
+);
 -- 문의사항 댓글
 select * from question_reply;
+drop table question_reply;
 create table question_reply(
     rno int auto_increment primary key,
     qid int,

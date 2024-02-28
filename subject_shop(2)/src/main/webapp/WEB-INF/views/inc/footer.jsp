@@ -40,6 +40,7 @@
         <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4" style="font-size:13px;">
           <span>고객센터 1899-7000(유료)</span>
         </div>
+          </div>
         <!-- Grid column -->
   </section>
   <!-- Section: Links  -->
@@ -48,6 +49,7 @@
   <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
     Copyright © LOTTESHOPPING CO., LTD. All rights reserved.
   </div>
+
   <!-- Copyright -->
 </footer>
 </body>

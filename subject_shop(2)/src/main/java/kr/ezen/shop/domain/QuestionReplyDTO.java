@@ -8,8 +8,9 @@ import java.util.Date;
 public class QuestionReplyDTO {
     private int rno;
     private int qid;
-    private String r_contents;
+    private String ans_contents;
     private String replyer;
-    private Date r_date;
-    private Date update_date;
+    private String q_writer;
+    private Date anw_reg_date;
+   
 }

@@ -39,18 +39,8 @@ public class QuestionReplyServiceImpl implements QuestionReplyService{
     }
 
     @Override
-    public ReplyPageDTO getList(int qid, int viewPage) {
-        int replyCnt = mapper.replyCnt(qid);
-        ReplyPageDTO rPageDto = new ReplyPageDTO();
-        rPageDto.setViewPage(viewPage);
-        rPageDto.setValue(replyCnt);
-        List<QuestionReplyDTO> list = mapper.getListByQid(qid, rPageDto.getStartIndex(), rPageDto.getCntPerPage());
-        rPageDto.setList(list);
-        return rPageDto;
-    }
-
-    @Override
-    public int replyCnt(int qid) {
-        return mapper.replyCnt(qid);
+    public QuestionReplyDTO getList(int qid) {
+        QuestionReplyDTO answer = mapper.getListByQid(qid);
+        return answer;
     }
 }
