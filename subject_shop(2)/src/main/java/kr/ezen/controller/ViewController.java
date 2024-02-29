@@ -7,6 +7,8 @@ import kr.ezen.shop.domain.CartDTO;
 import kr.ezen.shop.domain.CategoryDTO;
 import kr.ezen.shop.domain.MemberDTO;
 import kr.ezen.shop.domain.ProductDTO;
+import kr.ezen.shop.domain.QuestionDTO;
+import kr.ezen.shop.domain.QuestionReplyDTO;
 import kr.ezen.shop.util.ProdSpec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -94,12 +96,18 @@ public class ViewController {
         model.addAttribute("mDto", mDto);
         return "/view/userInfo";
     }
+   
     @PostMapping("userModify.do")
     public String userModify(MemberDTO mDto){
         service.userModify(mDto);
         return "redirect:/view/userInfo.do";
     }
-
+	 @RequestMapping("questionInfo.do")
+	    public String questionInfo(String q_writer, Model model) {
+		 List<QuestionDTO> ques_list = service.quesList(q_writer);
+		 model.addAttribute(ques_list);
+	    	return "/view/questionInfo";
+	    }
     //장바구니
     @GetMapping("cart.do")
     public String cart(Model model){

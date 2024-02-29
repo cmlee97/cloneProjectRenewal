@@ -4,6 +4,7 @@ import kr.ezen.shop.domain.CartDTO;
 import kr.ezen.shop.domain.CategoryDTO;
 import kr.ezen.shop.domain.MemberDTO;
 import kr.ezen.shop.domain.ProductDTO;
+import kr.ezen.shop.domain.QuestionDTO;
 import kr.ezen.shop.mapper.AdminMapper;
 import kr.ezen.shop.mapper.ViewMapper;
 import lombok.SneakyThrows;
@@ -66,5 +67,10 @@ public class ViewServiceImpl implements ViewService {
     public void userModify(MemberDTO mDto) {
         mapper.userModify(mDto);
     }
+
+	@Override
+	public List<QuestionDTO> quesList(String q_writer) {
+		return mapper.quesList(q_writer);
+	}
 
 }

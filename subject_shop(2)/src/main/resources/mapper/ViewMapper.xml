@@ -32,4 +32,7 @@
         zipcode=#{zipcode}, road_addr=#{road_addr},
         jibun_addr=#{jibun_addr}, detail_addr=#{detail_addr} WHERE no=#{no}
     </update>
+    <select id="quesList" parameterType="String" resultType="questionDTO">
+    	SELECT * FROM question_board WHERE q_writer = #{q_writer}
+    </select>
 </mapper>

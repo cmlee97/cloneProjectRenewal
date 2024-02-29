@@ -25,6 +25,7 @@
     <ul>
       <li><a href="<c:url value='/view/myPage.do'/>">비밀번호 변경</a></li>
       <li><a href="<c:url value='/view/userInfo.do'/>">회원정보 수정</a></li>
+      <li><a href="<c:url value='/view/questionInfo.do?q_writer=${sessionScope.loginDto.id}'/>">문의사항 확인</a></li>
     </ul>
   </aside>
     <div class="container col-sm-9">

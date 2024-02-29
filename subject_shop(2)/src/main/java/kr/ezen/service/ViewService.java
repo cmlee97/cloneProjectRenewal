@@ -4,6 +4,8 @@ import kr.ezen.shop.domain.CartDTO;
 import kr.ezen.shop.domain.CategoryDTO;
 import kr.ezen.shop.domain.MemberDTO;
 import kr.ezen.shop.domain.ProductDTO;
+import kr.ezen.shop.domain.QuestionDTO;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,4 +33,6 @@ public interface ViewService {
     MemberDTO userInfo(MemberDTO dto);
     //사용자 정보 수정
     void userModify(MemberDTO mDto);
+    //사용자 문의사항 조회
+	List<QuestionDTO> quesList(String q_writer);
 }
