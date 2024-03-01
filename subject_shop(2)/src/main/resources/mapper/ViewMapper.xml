@@ -17,7 +17,7 @@
         SELECT * FROM product WHERE p_category_fk=#{p_category_fk}
     </select>
     <select id="prodView" parameterType="Integer" resultType="productDTO">
-        SELECT * FROM product WHERE p_num = ${p_num}
+        SELECT * FROM product WHERE p_num = #{p_num}
     </select>
 
     <insert id="cartAdd" parameterType="cartDTO">
@@ -32,7 +32,31 @@
         zipcode=#{zipcode}, road_addr=#{road_addr},
         jibun_addr=#{jibun_addr}, detail_addr=#{detail_addr} WHERE no=#{no}
     </update>
-    <select id="quesList" parameterType="String" resultType="questionDTO">
-    	SELECT * FROM question_board WHERE q_writer = #{q_writer}
+    
+    
+    <select id="quesList" parameterType="PageDTO" resultType="questionDTO">
+    	 SELECT * FROM question_board
+        <include refid="criteria"></include>
+        ORDER BY qid DESC LIMIT #{startIndex}, #{cntPerPage}
     </select>
+     <select id="myquesInfo" resultType="questionDTO">
+        SELECT * FROM question_board WHERE qid=#{qid}
+    </select>
+    <update id="quesModify" parameterType="questionDTO">
+        UPDATE question_board SET q_subject=#{q_subject}, q_contents=#{q_contents} WHERE qid=#{qid}
+    </update>
+        <delete id="questionRemove">
+        DELETE FROM question_board WHERE qid=#{qid}
+    </delete>
+        <select id="totalQuesCnt" resultType="Integer">
+        SELECT count(*) from question_board
+        WHERE 1=1
+        <include refid="criteria"></include>
+    </select>
+        <sql id="criteria">
+    	<if test = "!ques_option.equals('all')">
+    	AND ques_option = #{ques_option}</if>
+    	<if test = "ques_option.equals('all')">
+    	</if>
+    </sql>
 </mapper>

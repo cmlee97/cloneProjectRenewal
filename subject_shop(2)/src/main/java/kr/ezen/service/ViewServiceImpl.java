@@ -3,6 +3,7 @@ package kr.ezen.service;
 import kr.ezen.shop.domain.CartDTO;
 import kr.ezen.shop.domain.CategoryDTO;
 import kr.ezen.shop.domain.MemberDTO;
+import kr.ezen.shop.domain.PageDTO;
 import kr.ezen.shop.domain.ProductDTO;
 import kr.ezen.shop.domain.QuestionDTO;
 import kr.ezen.shop.mapper.AdminMapper;
@@ -69,8 +70,22 @@ public class ViewServiceImpl implements ViewService {
     }
 
 	@Override
-	public List<QuestionDTO> quesList(String q_writer) {
-		return mapper.quesList(q_writer);
+	public List<QuestionDTO> quesList(PageDTO paDto) {
+        int totalCnt = mapper.totalQuesCnt(paDto);
+        paDto.setValue(totalCnt);
+		return mapper.quesList(paDto);
 	}
-
+	@Override
+    public QuestionDTO myquesInfo(int qid) {
+        return mapper.myquesInfo(qid);
+    }
+	@Override
+	public void quesModify(QuestionDTO qDto) {
+	    mapper.quesModify(qDto);
+	   }
+    @Override
+    public void questionRemove(int qid) {
+        mapper.questionRemove(qid);
+    }
+	
 }

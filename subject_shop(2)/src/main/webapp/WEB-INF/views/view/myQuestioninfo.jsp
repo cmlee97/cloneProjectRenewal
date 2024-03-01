@@ -30,19 +30,45 @@
   </aside>
     <div class="container w-50 mt-5 p-5">
 
-    <div class = "d-flex mb-2" >
-        <h5 style="width:100px; margin-right:50px;">제목</h5><h6>${qDto.q_subject}</h6>
-    </div>
-    <div class = "d-flex mb-2">
-        <h5 style="width:100px; margin-right:50px;">작성자</h5><h6>${qDto.q_writer}</h6>
-    </div>
-    <div class="mb-4 border border-secondary rounded p-4">
-        <h7>${qDto.q_contents}</h7>
-    </div>
+   <form action="<c:url value="/view/quesModify.do"/>" method="post" name="ques_input_form">
+        <input type="hidden" name="cntPerPage" value="${paDto.cntPerPage}"/>
+        <h4 class="mb-4 text-center">글쓰기</h4>
+		<select class="form-select form-select-sm" id="ques_option" name="ques_option">
+            <option value="${quesinfo.ques_option}" selected>${quesinfo.ques_option}</option>
+            <c:forEach var="opspec" items="${opspec}">
+              <option value="${opspec.name()}">${opspec.value}</option>
+            </c:forEach>
+          </select>
+        <input class="form-control mt-2" type="text" id="q_subject" name="q_subject" placeholder="${quesinfo.q_subject}" autofocus>
+
+        <textarea class="form-control mt-2" name="q_contents" id="q_contents" style="height:400px;" placeholder="${quesinfo.q_contents}"></textarea>
+
+        <input class="form-control mt-2" type="text" id="q_writer" name="q_writer" value="${sessionScope.loginDto.id}" placeholder="${sessionScope.loginDto.id}">
+		<input class="form-control mt-2" type="text" id="reg_date" name="reg_date" value="${quesinfo.reg_date}" placeholder="${quesinfo.reg_date}">
+		<h6 class="mt-2 mb-2">공개여부</h6>
+		<div class="form-check form-check-inline">
+		  <input class="form-check-input" type="radio" name="ques_state" id="ques_state" value="open" checked>
+		  <label class="form-check-label" for="inlineRadio1">공개</label>
+		</div>
+		<div class="form-check form-check-inline">
+		  <input class="form-check-input" type="radio" name="ques_state" id="ques_state" value="notopen">
+		  <label class="form-check-label" for="inlineRadio2" >비공개</label>
+		</div>
+
+        <div class="text-center mt-3">
+            <input class="btn btn-outline-success" onclick = "modifysubmit()"value ="수정"></input>
+        </div>
+    </form>
     <div class="d-flex mb-4 justify-content-center">
   
-    <a href="<c:url value='/view/questionList.do?viewPage=${paDto.viewPage}&cntPerPage=${paDto.cntPerPage}'/>"
-                           class = "btn btn-sm btn-dark m-3">리스트</a>
+    <a href="javascript:history.back();" class = "btn btn-sm btn-dark m-3">목록으로 돌아가기</a>
+    <c:if test="${qDto.ques_state!='문의사항 확인중'}">
+    	<a href="<c:url value='/view/quesModify.do?viewPage=${paDto.viewPage}&cntPerPage=${paDto.cntPerPage}'/>"
+                           class = "btn btn-sm btn-success m-3">수정</a>
+    </c:if>
+    
+     <a href="<c:url value='/view/questionRemove.do?qid=${qDto.qid}&viewPage=${paDto.viewPage}&cntPerPage=${paDto.cntPerPage}'/>"
+                           class = "btn btn-sm btn-danger m-3">삭제</a>
     </div>
 		<c:if test="${qDto.ques_state!='문의사항 확인중'}">
         <div class="mt-5 mb-3 d-flex justify-content-between">
@@ -65,6 +91,10 @@
 <script src="../js/reply.js"></script>
 
 <script>
+	function modifysubmit(){
+		
+	}
+
     $(document).ready(function(){
         //게시글 번호
         let qidValue = '<c:out value="${qDto.qid}"/>';

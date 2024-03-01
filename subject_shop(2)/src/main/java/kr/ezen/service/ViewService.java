@@ -3,6 +3,7 @@ package kr.ezen.service;
 import kr.ezen.shop.domain.CartDTO;
 import kr.ezen.shop.domain.CategoryDTO;
 import kr.ezen.shop.domain.MemberDTO;
+import kr.ezen.shop.domain.PageDTO;
 import kr.ezen.shop.domain.ProductDTO;
 import kr.ezen.shop.domain.QuestionDTO;
 
@@ -34,5 +35,11 @@ public interface ViewService {
     //사용자 정보 수정
     void userModify(MemberDTO mDto);
     //사용자 문의사항 조회
-	List<QuestionDTO> quesList(String q_writer);
+	List<QuestionDTO> quesList(PageDTO paDto);
+	 //문의사항게시물 정보
+    QuestionDTO myquesInfo(int qid);
+	//문의사항 수정
+    void quesModify(QuestionDTO qDto);
+    //문의사항 삭제
+    void questionRemove(int qid);
 }

@@ -6,10 +6,13 @@ import kr.ezen.service.ViewService;
 import kr.ezen.shop.domain.CartDTO;
 import kr.ezen.shop.domain.CategoryDTO;
 import kr.ezen.shop.domain.MemberDTO;
+import kr.ezen.shop.domain.PageDTO;
 import kr.ezen.shop.domain.ProductDTO;
 import kr.ezen.shop.domain.QuestionDTO;
 import kr.ezen.shop.domain.QuestionReplyDTO;
 import kr.ezen.shop.util.ProdSpec;
+import kr.ezen.shop.util.QuestionOption;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
@@ -102,12 +105,46 @@ public class ViewController {
         service.userModify(mDto);
         return "redirect:/view/userInfo.do";
     }
+    //문의사항
 	 @RequestMapping("questionInfo.do")
-	    public String questionInfo(String q_writer, Model model) {
-		 List<QuestionDTO> ques_list = service.quesList(q_writer);
-		 model.addAttribute(ques_list);
-	    	return "/view/questionInfo";
+	    public String questionInfo( @ModelAttribute("paDto") PageDTO paDto, @ModelAttribute("q_writer") String q_writer, Model model) {
+		 paDto.setQ_writer(q_writer);
+		 List<QuestionDTO> ques_list = service.quesList(paDto);
+		 model.addAttribute("ques_list", ques_list);
+	    	return "/view/myQuestion";
 	    }
+	 @RequestMapping("myquesInfo.do")
+	 public String myquesInfo(int qid, Model model, PageDTO paDto , String code) {
+		 QuestionDTO quesinfo = service.myquesInfo(qid);
+		 QuestionOption[] opspec = QuestionOption.values();
+	     model.addAttribute("opspec", opspec);
+		 model.addAttribute("quesinfo", quesinfo);
+		 model.addAttribute("paDto", paDto);
+		 return "/view/myQuestioninfo";
+	 }
+	 @PostMapping("/quesModify.do")
+	    public String quesModify(QuestionDTO qDto, @ModelAttribute("paDto") PageDTO paDto
+	            , RedirectAttributes rttr){
+	        service.quesModify(qDto);
+	        rttr.addAttribute("viewPage",paDto.getViewPage());
+	        rttr.addAttribute("cntPerPage",paDto.getCntPerPage());
+	        return "redirect:/view/questionList.do";
+	    }
+	 @RequestMapping("/questionRemove.do")
+	    public String questionRemove(int qid, @ModelAttribute("paDto") PageDTO paDto
+	            , RedirectAttributes rttr){
+	        service.questionRemove(qid);
+	        rttr.addAttribute("viewPage",paDto.getViewPage());
+	        rttr.addAttribute("cntPerPage",paDto.getCntPerPage());
+	        return "redirect:/view/questionList.do";
+	    }
+//	 @RequestMapping("/quesInfo.do")
+//	    public String quesInfo(int qid, Model model, PageDTO paDto , String code){
+//	        QuestionDTO qDto = service.quesInfo(qid);
+//	        model.addAttribute("qDto", qDto);
+//	        model.addAttribute("paDto", paDto);
+//	        return "/customerService/csQuestionInfo";
+//	    }
     //장바구니
     @GetMapping("cart.do")
     public String cart(Model model){

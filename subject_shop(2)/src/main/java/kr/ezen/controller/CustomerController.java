@@ -42,8 +42,8 @@ public class CustomerController {
     
     
     @RequestMapping("/questionList.do")
-    public String questionList(Model model, @ModelAttribute("paDto") PageDTO paDto, String ques_option){
-//    	System.out.println(paDto.getQues_option()); 
+    public String questionList(Model model, @ModelAttribute("paDto") PageDTO paDto, @ModelAttribute("ques_option") String ques_option){
+    	System.out.println(paDto.getQues_option()); 
     	System.out.println(ques_option); 
     	if(paDto.getQues_option()==null)
     	paDto.setQues_option("all");
@@ -72,27 +72,27 @@ public class CustomerController {
         model.addAttribute("paDto", paDto);
         return "/customerService/csQuestionInfo";
     }
-    @RequestMapping("/quesUpdate.do")
-    public String quesUpdate(int qid, Model model, PageDTO paDto){
-        QuestionDTO qDto = service.quesUpdate(qid);
-        model.addAttribute("qDto", qDto);
-        model.addAttribute("paDto", paDto);
-        return "/customerService/csQuestionUpdate";
-    }
-    @PostMapping("/quesModify.do")
-    public String quesModify(QuestionDTO qDto, @ModelAttribute("paDto") PageDTO paDto
-            , RedirectAttributes rttr){
-        service.quesModify(qDto);
-        rttr.addAttribute("viewPage",paDto.getViewPage());
-        rttr.addAttribute("cntPerPage",paDto.getCntPerPage());
-        return "redirect:/view/questionList.do";
-    }
-    @RequestMapping("/questionRemove.do")
-    public String questionRemove(int qid, @ModelAttribute("paDto") PageDTO paDto
-            , RedirectAttributes rttr){
-        service.questionRemove(qid);
-        rttr.addAttribute("viewPage",paDto.getViewPage());
-        rttr.addAttribute("cntPerPage",paDto.getCntPerPage());
-        return "redirect:/view/questionList.do";
-    }
+//    @RequestMapping("/quesUpdate.do")
+//    public String quesUpdate(int qid, Model model, PageDTO paDto){
+//        QuestionDTO qDto = service.quesUpdate(qid);
+//        model.addAttribute("qDto", qDto);
+//        model.addAttribute("paDto", paDto);
+//        return "/customerService/csQuestionUpdate";
+//    }
+//    @PostMapping("/quesModify.do")
+//    public String quesModify(QuestionDTO qDto, @ModelAttribute("paDto") PageDTO paDto
+//            , RedirectAttributes rttr){
+//        service.quesModify(qDto);
+//        rttr.addAttribute("viewPage",paDto.getViewPage());
+//        rttr.addAttribute("cntPerPage",paDto.getCntPerPage());
+//        return "redirect:/view/questionList.do";
+//    }
+//    @RequestMapping("/questionRemove.do")
+//    public String questionRemove(int qid, @ModelAttribute("paDto") PageDTO paDto
+//            , RedirectAttributes rttr){
+//        service.questionRemove(qid);
+//        rttr.addAttribute("viewPage",paDto.getViewPage());
+//        rttr.addAttribute("cntPerPage",paDto.getCntPerPage());
+//        return "redirect:/view/questionList.do";
+//    }
 }
