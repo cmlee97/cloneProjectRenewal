@@ -15,4 +15,5 @@ public class QuestionDTO {
     private Date reg_date;
     private String ques_option;
     private String ques_state;
+    private String ans_state;
 }

@@ -34,8 +34,9 @@
     </update>
     
     
-    <select id="quesList" parameterType="PageDTO" resultType="questionDTO">
+    <select id="quesList" parameterType="pageDTO" resultType="questionDTO">
     	 SELECT * FROM question_board
+    	 WHERE q_writer = #{q_writer}
         <include refid="criteria"></include>
         ORDER BY qid DESC LIMIT #{startIndex}, #{cntPerPage}
     </select>
@@ -53,7 +54,7 @@
         WHERE 1=1
         <include refid="criteria"></include>
     </select>
-        <sql id="criteria">
+    <sql id="criteria">
     	<if test = "!ques_option.equals('all')">
     	AND ques_option = #{ques_option}</if>
     	<if test = "ques_option.equals('all')">

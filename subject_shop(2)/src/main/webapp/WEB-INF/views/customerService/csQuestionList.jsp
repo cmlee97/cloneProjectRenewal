@@ -16,8 +16,9 @@
 	    문의사항 종류
 	  	</button>
 	  	<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+	    		<li><a class="dropdown-item" href='/shop2/view/questionList.do?viewPage=${paDto.viewPage}&cntPerPage=${paDto.cntPerPage}'>전체</a></li>
 	  		<c:forEach var="opspec" items="${opspec}">
-	    		<li><a class="dropdown-item" href='/view/quesList.do?viewPage=${paDto.viewPage}&cntPerPage=${paDto.cntPerPage}&ques_option=${opspec.name()}'>${opspec.value}</a></li>
+	    		<li><a class="dropdown-item" href='/shop2/view/questionList.do?viewPage=${paDto.viewPage}&cntPerPage=${paDto.cntPerPage}&ques_option=${opspec.name()}'>${opspec.value}</a></li>
 	  		</c:forEach>
 	  	</ul>
 	  </div>
@@ -32,10 +33,7 @@
       <th>등록일</th>
     </tr>
     </thead>
-    <%-- XSS(cross-site Scripting 공격 : 웹사이트에 스크립트 코드를 주입시켜서 공격하는
-       해킹 기법,
-       JSP의 <c:out />는 입력된 태그를 해석하지 못하도록 문자로 변환하여 공격을 방어함.
-    --%>
+
     <tbody>
     <c:set var="rowNum" value="${paDto.startRowNum}"/>
     <c:forEach var="dto" items="${list}">

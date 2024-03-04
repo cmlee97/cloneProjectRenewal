@@ -127,4 +127,11 @@ public class AdminController {
         rttr.addAttribute("cntPerPage",paDto.getCntPerPage());
         return "redirect:/admin/memberList.do";
     }
+    //문의사항
+    @RequestMapping("/questionList.do")
+    public String questionList(Model model, PageDTO paDto) {
+    	List<QuestionDTO> list = service.questionList(paDto);
+    	model.addAttribute(list);
+    	return "admin/ques_list";
+    }
 }

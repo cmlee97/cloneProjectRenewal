@@ -44,14 +44,4 @@ public class CustomerServiceImpl implements CustomerService{
         return mapper.quesInfo(qid);
     }
 
-    @Override
-    public void quesModify(QuestionDTO qDto) {
-        mapper.quesModify(qDto);
-    }
-
-    @Override
-    public void questionRemove(int qid) {
-        mapper.questionRemove(qid);
-    }
-
 }

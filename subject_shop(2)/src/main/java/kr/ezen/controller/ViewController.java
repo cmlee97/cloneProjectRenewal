@@ -107,10 +107,17 @@ public class ViewController {
     }
     //문의사항
 	 @RequestMapping("questionInfo.do")
-	    public String questionInfo( @ModelAttribute("paDto") PageDTO paDto, @ModelAttribute("q_writer") String q_writer, Model model) {
+	    public String questionInfo( @ModelAttribute("paDto") PageDTO paDto, String q_writer, String ques_option, Model model) {
 		 paDto.setQ_writer(q_writer);
+		 System.out.println(q_writer);
+		 if(ques_option==null)
+		    	paDto.setQues_option("all");
+		 else paDto.setQues_option(ques_option);
 		 List<QuestionDTO> ques_list = service.quesList(paDto);
 		 model.addAttribute("ques_list", ques_list);
+		 QuestionOption[] opspec = QuestionOption.values();
+	     model.addAttribute("opspec", opspec);
+	     model.addAttribute(paDto);
 	    	return "/view/myQuestion";
 	    }
 	 @RequestMapping("myquesInfo.do")

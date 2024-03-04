@@ -67,4 +67,8 @@
 		DELETE FROM product WHERE p_num = #{p_num}
 	</delete>
 
+	<!-- 문의사항 -->
+	<select id="questionList" parameterType="pageDTO" resultType="questionDTO">
+		SELECT * FROM question_board
+	</select>
 </mapper>

@@ -42,9 +42,8 @@ public class CustomerController {
     
     
     @RequestMapping("/questionList.do")
-    public String questionList(Model model, @ModelAttribute("paDto") PageDTO paDto, @ModelAttribute("ques_option") String ques_option){
-    	System.out.println(paDto.getQues_option()); 
-    	System.out.println(ques_option); 
+    public String questionList(Model model, @ModelAttribute("paDto") PageDTO paDto, String ques_option){
+    	System.out.println(ques_option);
     	if(paDto.getQues_option()==null)
     	paDto.setQues_option("all");
         List<QuestionDTO> list = service.questionList(paDto);

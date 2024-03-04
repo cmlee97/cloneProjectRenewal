@@ -36,13 +36,8 @@
     <select id="quesInfo" resultType="questionDTO">
         SELECT * FROM question_board WHERE qid=#{qid}
     </select>
-    <update id="quesModify" parameterType="questionDTO">
-        UPDATE question_board SET q_subject=#{q_subject}, q_contents=#{q_contents} WHERE qid=#{qid}
-    </update>
+
     <update id="plusHit">
         UPDATE question_board SET q_hit=q_hit+1 WHERE qid=#{qid}
     </update>
-    <delete id="questionRemove">
-        DELETE FROM question_board WHERE qid=#{qid}
-    </delete>
 </mapper>

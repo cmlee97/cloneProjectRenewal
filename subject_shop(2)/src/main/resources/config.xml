@@ -14,6 +14,7 @@
      <typeAlias type="kr.ezen.shop.domain.NoticeDTO" alias="noticeDTO"/>
      <typeAlias type="kr.ezen.shop.domain.QuestionDTO" alias="questionDTO"/>
      <typeAlias type="kr.ezen.shop.domain.QuestionReplyDTO" alias="questionReplyDTO"/>
+     <typeAlias type="kr.ezen.shop.domain.PageDTO" alias="pageDTO"/>
   </typeAliases>
 
 </configuration>

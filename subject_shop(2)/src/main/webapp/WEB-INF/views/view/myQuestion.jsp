@@ -28,15 +28,34 @@
 	<li><a href="<c:url value='/view/questionInfo.do?q_writer=${sessionScope.loginDto.id}'/>">문의사항 확인</a></li>
     </ul>
   </aside>
-    <div class="container col-sm-9">
-    	<table class="table">
-    <thead class="table-dark">
+    <div class="container col-sm-9 mb-4">
+    <h2 class="mb-2">분류</h2>
+   	<div class="d-flex mb-4">
+	  <div class="form-check mr-3">
+	   <input class="form-check-input" type="checkbox" value="all" id="flexCheckDefault" checked>
+	   <label class="form-check-label" for="flexCheckDefault">
+	    <a class="dropdown-item" href='/shop2/view/questionInfo.do?viewPage=${paDto.viewPage}&cntPerPage=${paDto.cntPerPage}&q_writer=${paDto.q_writer}'>전체</a>
+	  </label>
+	  </div>
+	  <c:forEach var="opspec" items="${opspec}">
+		  <div class="form-check mr-3">
+		   <input class="form-check-input" type="checkbox" value="${opspec.name()}" id="flexCheckDefault">
+		   <label class="form-check-label" for="flexCheckChecked">
+		    <a class="dropdown-item" href='/shop2/view/questionInfo.do?viewPage=${paDto.viewPage}&cntPerPage=${paDto.cntPerPage}&q_writer=${paDto.q_writer}&ques_option=${opspec.name()}'>${opspec.value}</a>
+		   </label>
+		  </div>
+	  </c:forEach>
+	  </div>
+   	
+   	<table class="table">
+    <thead class="table-dark text-center">
     <tr>
       <th>번호</th>
       <th>제목</th>
       <th>종류</th>
-      <th>진행상황</th>
+      <th>공개여부</th>
       <th>등록일</th>
+      <th>진행상태</th>
     </tr>
     </thead>
     <tbody>
@@ -45,9 +64,10 @@
       <tr>
         <td>${rowNum}</td>
         <td><a href="<c:url value='/view/myquesInfo.do?qid=${dto.qid}&viewPage=${paDto.viewPage}&cntPerPage=${paDto.cntPerPage}&ques_option=${paDto.ques_option}'/>"><c:out value="${dto.q_subject}"/></a></td>
-        <td>${dto.ques_option}</td>
-        <td>${dto.ques_state}</td>
+        <td><c:forEach var="opspec" items="${opspec}"><c:if test="${opspec.name()==dto.ques_option}">${opspec.value}</c:if> </c:forEach></td>
+        <td>${dto.ques_state=="open" ? '공개' : '비공개'}</td>
         <td>${dto.reg_date}</td>
+        <td>${dto.ans_state}</td>
       </tr>
       <c:set var="rowNum" value="${rowNum - 1}"/>
     </c:forEach>

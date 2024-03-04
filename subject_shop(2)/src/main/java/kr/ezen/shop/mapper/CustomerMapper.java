@@ -22,10 +22,6 @@ public interface CustomerMapper {
     void quesRegister(QuestionDTO qDto);
     //문의사항 게시물 정보
     QuestionDTO quesInfo(int qid);
-    //문의사항 수정
-    void quesModify(QuestionDTO qDto);
-    //문의사항 삭제
-    void questionRemove(int qid);
     //조회수
     void plusHit(int qid);
 }

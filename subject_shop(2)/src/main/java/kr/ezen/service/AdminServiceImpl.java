@@ -98,4 +98,10 @@ public class AdminServiceImpl implements AdminService{
 		List<ProductDTO> list = mapper.prodList(pDto);
 		return list;
 	}
+	//문의사항
+	@Override
+	public List<QuestionDTO> questionList(PageDTO paDto) {
+		List<QuestionDTO> list = mapper.questionList(paDto);
+		return list;
+	}
 }

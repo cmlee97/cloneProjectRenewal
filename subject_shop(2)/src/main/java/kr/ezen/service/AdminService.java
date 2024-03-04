@@ -43,5 +43,7 @@ public interface AdminService {
 
 	//제품리스트
 	List<ProductDTO> prodList(PageDTO pDto);
+	//문의사항 리스트
+	List<QuestionDTO> questionList(PageDTO paDto);
 
 }

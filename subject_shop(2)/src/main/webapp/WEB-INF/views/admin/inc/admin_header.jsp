@@ -69,6 +69,9 @@
           <li class="nav-item">
             <a class="nav-link" href="<c:url value='/admin/noticeList.do'/>">공지사항 관리</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<c:url value='/admin/questionList.do'/>">문의사항 관리</a>
+          </li>
         </ul>
       </div>
     </nav>

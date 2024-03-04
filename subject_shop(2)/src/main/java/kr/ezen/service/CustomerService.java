@@ -19,8 +19,5 @@ public interface CustomerService {
     QuestionDTO quesInfo(int qid);
     //문의사항 게시물 업데이트시 정보
     QuestionDTO quesUpdate(int qid);
-    //문의사항 수정
-    void quesModify(QuestionDTO qDto);
-    //문의사항 삭제
-    void questionRemove(int qid);
+
 }
