@@ -3,6 +3,7 @@ package kr.ezen.controller;
 import kr.ezen.service.AdminService;
 import kr.ezen.shop.domain.*;
 import kr.ezen.shop.util.ProdSpec;
+import kr.ezen.shop.util.QuestionOption;
 
 import java.util.List;
 
@@ -129,9 +130,22 @@ public class AdminController {
     }
     //문의사항
     @RequestMapping("/questionList.do")
-    public String questionList(Model model, PageDTO paDto) {
+    public String questionList(Model model, PageDTO paDto, String ques_option) {
+    	if(paDto.getQues_option()==null)
+    	paDto.setQues_option("all");
     	List<QuestionDTO> list = service.questionList(paDto);
-    	model.addAttribute(list);
+    	model.addAttribute("paDto", paDto);
+    	model.addAttribute("list", list);
+   	 	QuestionOption[] opspec = QuestionOption.values();
+   	 	model.addAttribute("opspec", opspec);
     	return "admin/ques_list";
+    }
+    @RequestMapping("/quesInfo.do")
+    public String quesInfo(int qid, Model model) {
+    	QuestionDTO qDto = service.quesInfo(qid);
+    	model.addAttribute("qDto", qDto);
+      	QuestionOption[] opspec = QuestionOption.values();
+        model.addAttribute("opspec", opspec);
+    	return "admin/ques_info";
     }
 }

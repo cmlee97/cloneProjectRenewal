@@ -45,7 +45,7 @@
 </div>
 
   <div class="bg-black w-100 d-flex justify-content-center">
-    <nav class="navbar navbar-expand-sm bg-black navbar-dark col-sm-7" >
+    <nav class="navbar navbar-expand-sm bg-black navbar-dark col-sm-8" >
       <div class="container-fluid">
         <ul class="navbar-nav row-cols-5 text-center">
           <li class="nav-item">

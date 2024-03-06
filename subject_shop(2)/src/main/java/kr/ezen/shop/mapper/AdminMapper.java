@@ -53,4 +53,8 @@ public interface AdminMapper {
 	int totalMemCnt(PageDTO pDto);
 	//문의사항 리스트
 	List<QuestionDTO> questionList(PageDTO paDto);
+	//문의사항 개수
+	int totalQuesCnt(PageDTO paDto);
+	//문의사항 정보
+	QuestionDTO quesInfo(int qid);
 }

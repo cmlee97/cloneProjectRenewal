@@ -102,6 +102,14 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public List<QuestionDTO> questionList(PageDTO paDto) {
 		List<QuestionDTO> list = mapper.questionList(paDto);
+		int totalQuesCnt = mapper.totalQuesCnt(paDto);
+		paDto.setValue(totalQuesCnt);
 		return list;
+	}
+
+	@Override
+	public QuestionDTO quesInfo(int qid) {
+		QuestionDTO qDto = mapper.quesInfo(qid);
+		return qDto;
 	}
 }
