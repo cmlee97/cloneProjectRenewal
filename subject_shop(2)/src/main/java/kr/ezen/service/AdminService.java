@@ -47,5 +47,9 @@ public interface AdminService {
 	List<QuestionDTO> questionList(PageDTO paDto);
 	//문의사항 정보
 	QuestionDTO quesInfo(int qid);
+	//문의사항답변 등록
+	void answerRegister(QuestionReplyDTO qrDto);
+	//문의사항답변 삭제
+	void answerDelete(int rno, int qid);
 
 }

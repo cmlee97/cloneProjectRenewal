@@ -148,4 +148,14 @@ public class AdminController {
         model.addAttribute("opspec", opspec);
     	return "admin/ques_info";
     }
+    @RequestMapping("/answerRegister.do")
+    public String answerRegister(QuestionReplyDTO qrDto) {
+    	service.answerRegister(qrDto);
+    	return "redirect:/questionList.do";
+    }
+    @RequestMapping("/answerDelete.do")
+    public String answerDelete(int rno, int qid) {
+    	service.answerDelete(rno, qid);
+    	return "redirect:/questionList.do";
+    }
 }

@@ -57,4 +57,10 @@ public interface AdminMapper {
 	int totalQuesCnt(PageDTO paDto);
 	//문의사항 정보
 	QuestionDTO quesInfo(int qid);
+	//문의사항답변 등록
+	void answerRegister(QuestionReplyDTO qrDto);
+	//문의사항답변 삭제
+	void answerDelete(int rno);
+	//문의사항답변 삭제시 문의사항상태 변경
+	void stateChange(int qid);
 }

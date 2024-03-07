@@ -24,10 +24,20 @@
   
     <a href="<c:url value='javascript:history.bakck()'/>"
                            class = "btn btn-sm btn-dark m-3">리스트</a>
-    <a href="<c:url value=''/>"
-                           class = "btn btn-sm btn-success m-3">답변 등록</a>
     </div>
-		<c:if test="${qDto.ques_state!='문의사항 확인중'}">
+    <hr class="container mt-3">
+	<form action="<c:url value='/admin/answerRegister.do'/>" method="post">
+      <input type='hidden' name='qid' value='${qDto.qid}'>
+      <input type='hidden' name='qid' value='${qDto.qid}'>
+      <input type='hidden' name='q_writer' value='${qDto.q_writer}'>
+      <div class="mt-3 mb-3">
+        <textarea class="w-100 p-2" id="ans_contents" name="ans_contents" placeholder="답변을 입력하세요"></textarea>
+      </div>
+      <div class="text-center">
+        <input type="button" class="btn btn-primary btn-sm" value="답변 등록"/>
+      </div>
+    </form>  
+	<c:if test="${qDto.ques_state!='문의사항 확인중'}">
         <div class="mt-5 mb-3 d-flex justify-content-between">
             <h6><i class="fa fa-comments-o"></i> 답변</h6>
         </div>
@@ -64,6 +74,8 @@
                         +'<h6>'+answer.replyer+'</h6><span>'+replyFunc.showDateTime(answer.anw_reg_date)+'</span>'
                         +'</div>'
                         +'<p>'+answer.ans_contents+'</p>'
+                        //+'<a href="/answerModify.do?rno='+answer.rno+'" class="btn btn-primary btn-sm" value="수정"'
+                        +'<a href="/answerDelete.do?rno='+answer.rno+'&qid='+qidValue+'" class="btn btn-primary btn-sm" value="삭제"'
                         +'</div>'
                         +'</li>';
                 }
