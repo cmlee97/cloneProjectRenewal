@@ -12,7 +12,7 @@ let replyFunc = (() => {
             },
             error: ()=>{alert("요청을 실패하였습니다")}
         });
-    }
+     }
     //댓글 시간,날짜 표시
     function showDateTime(timeValue){
         //현재시간
@@ -41,7 +41,6 @@ let replyFunc = (() => {
     }
 
     return{
-        read : read,
         getList: getList,
         showDateTime: showDateTime
     }

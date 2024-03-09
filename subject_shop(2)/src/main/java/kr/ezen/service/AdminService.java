@@ -51,5 +51,7 @@ public interface AdminService {
 	void answerRegister(QuestionReplyDTO qrDto);
 	//문의사항답변 삭제
 	void answerDelete(int rno, int qid);
+	//문의사항 수정
+	void answerModify(QuestionReplyDTO qrDto);
 
 }

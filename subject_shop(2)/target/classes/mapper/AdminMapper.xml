@@ -96,6 +96,18 @@
 		DELETE FROM question_answer WHERE rno = #{rno}
 	</delete>
 	<update id="stateChange" parameterType="Integer">
-		UPDATE question_board SET ans_state="문의사항 확인중" WHERE qid = #{qid}
+		UPDATE question_board SET <include refid="changestate"></include> WHERE qid = #{qid}
 	</update>
+	
+	 <sql id="changestate">
+    	<if test = "!ans_state.equals('문의사항 확인중')">
+    	ans_state="문의사항 확인중"</if>
+    	<if test = "ques_option.equals('문의사항 확인중')">
+    	ans_state="답변 완료"
+    	</if>
+    </sql>
+	<update id="answerModify" parameterType="questionReplyDTO">
+		UPDATE question_answer SET ans_contents=#{ans_contents}, anw_reg_date=now() WHERE rno = #{rno}
+	</update>
+    answerModify
 </mapper>

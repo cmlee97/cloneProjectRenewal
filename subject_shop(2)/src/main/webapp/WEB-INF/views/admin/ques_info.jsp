@@ -28,7 +28,6 @@
     <hr class="container mt-3">
 	<form action="<c:url value='/admin/answerRegister.do'/>" method="post">
       <input type='hidden' name='qid' value='${qDto.qid}'>
-      <input type='hidden' name='qid' value='${qDto.qid}'>
       <input type='hidden' name='q_writer' value='${qDto.q_writer}'>
       <div class="mt-3 mb-3">
         <textarea class="w-100 p-2" id="ans_contents" name="ans_contents" placeholder="답변을 입력하세요"></textarea>
@@ -37,10 +36,10 @@
         <input type="button" class="btn btn-primary btn-sm" value="답변 등록"/>
       </div>
     </form>  
-	<c:if test="${qDto.ques_state!='문의사항 확인중'}">
         <div class="mt-5 mb-3 d-flex justify-content-between">
             <h6><i class="fa fa-comments-o"></i> 답변</h6>
         </div>
+	<c:if test="${qDto.ques_state != '문의사항 확인중'}">
         <ul class="p-0 replyArea" style="list-style:none">
             <li class="mb-2 p-0">
                 <div class="form-control">
@@ -63,28 +62,36 @@
         let qidValue = '<c:out value="${qDto.qid}"/>';
         //답변 영역 객체
         let replyArea = $(".replyArea");
-
+		
         function displayList(){
             let str = "";
             replyFunc.getList(qid:qidValue, function(data){
                 let answer = data.answer;
                 //답변이 있는 경우
+                for(let i=0; i<list.length; i++){
                     str+='<div class="form-control">'
                         +'<div class="d-flex justify-content-between">'
                         +'<h6>'+answer.replyer+'</h6><span>'+replyFunc.showDateTime(answer.anw_reg_date)+'</span>'
                         +'</div>'
-                        +'<p>'+answer.ans_contents+'</p>'
-                        //+'<a href="/answerModify.do?rno='+answer.rno+'" class="btn btn-primary btn-sm" value="수정"'
-                        +'<a href="/answerDelete.do?rno='+answer.rno+'&qid='+qidValue+'" class="btn btn-primary btn-sm" value="삭제"'
+                        +'<p id="answerContents'+i+"'>'+answer.ans_contents+'</p>'
+                       	+'<div onclick="answerModify('+answer.rno+','+qidValue+','+i+')" class="btn btn-primary btn-sm" value="수정"></div>'
+                        +'<a href="/answerDelete.do?rno='+answer.rno+'&qid='+qidValue+'" class="btn btn-primary btn-sm" value="삭제"/>'
                         +'</div>'
                         +'</li>';
                 }
+             }
                 replyArea.html(str);
                 showPgNavi(data);
             });
         }//displayList
-        
+       
     })
+    function answerModify(int rno, int qidValue, int num){
+    	let answerContents = document.getElementById('answerContents'+i);
+    	
+    	location.href="/answerModify.do?rno="+rno+"&qid="+qidValue+"&ans_contents="+answerContents;
+    	
+    }
 </script>
   <%@ include file="inc/admin_footer.jsp" %>
 </c:if>

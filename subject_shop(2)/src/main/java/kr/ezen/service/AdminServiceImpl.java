@@ -123,4 +123,10 @@ public class AdminServiceImpl implements AdminService{
 		mapper.answerDelete(rno);
 		mapper.stateChange(qid);
 	}
+
+	@Override
+	public void answerModify(QuestionReplyDTO qrDto) {
+		mapper.answerModify(qrDto);
+		
+	}
 }

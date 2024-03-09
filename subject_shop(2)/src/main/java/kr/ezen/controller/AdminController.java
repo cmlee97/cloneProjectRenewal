@@ -16,7 +16,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -153,9 +156,18 @@ public class AdminController {
     	service.answerRegister(qrDto);
     	return "redirect:/questionList.do";
     }
+    @RequestMapping("/answerModify.do")
+    public String answerModify(int rno, int qid, String ans_contents) {
+    	QuestionReplyDTO qrDto = new QuestionReplyDTO();
+    	qrDto.setRno(rno);
+    	qrDto.setAns_contents(ans_contents);
+    	service.answerModify(qrDto);
+    	return "redirect:/questionInfo.do?qid="+qid;
+    }
+   
     @RequestMapping("/answerDelete.do")
     public String answerDelete(int rno, int qid) {
     	service.answerDelete(rno, qid);
-    	return "redirect:/questionList.do";
+    	return "redirect:/questionInfo.do?qid="+qid;
     }
 }
