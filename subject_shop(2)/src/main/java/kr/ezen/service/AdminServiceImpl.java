@@ -115,7 +115,8 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public void answerRegister(QuestionReplyDTO qrDto) {
-		mapper.answerRegister(qrDto);		
+		mapper.answerRegister(qrDto);
+		mapper.stateChange(qrDto.getQid());
 	}
 
 	@Override
@@ -128,5 +129,14 @@ public class AdminServiceImpl implements AdminService{
 	public void answerModify(QuestionReplyDTO qrDto) {
 		mapper.answerModify(qrDto);
 		
+	}
+
+	@Override
+	public QuestionReplyDTO answer(int qid) {
+		QuestionReplyDTO qrDto = new QuestionReplyDTO();
+		int ans_count = mapper.answerCount(qrDto.getQid());
+		if(ans_count!=0)
+		qrDto = mapper.answer(qid);
+		return qrDto;
 	}
 }

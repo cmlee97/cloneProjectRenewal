@@ -149,20 +149,31 @@ public class AdminController {
     	model.addAttribute("qDto", qDto);
       	QuestionOption[] opspec = QuestionOption.values();
         model.addAttribute("opspec", opspec);
+        QuestionReplyDTO qrDto = service.answer(qid);
+        if(qrDto != null)
+        model.addAttribute("qrDto", qrDto);
     	return "admin/ques_info";
     }
     @RequestMapping("/answerRegister.do")
-    public String answerRegister(QuestionReplyDTO qrDto) {
+    public String answerRegister(int qid, String q_writer, String ans_contents) {
+    	QuestionReplyDTO qrDto = new QuestionReplyDTO();
+    	System.out.println(qid);
+    	qrDto.setQid(qid);
+    	qrDto.setQ_writer(q_writer);
+    	qrDto.setAns_contents(ans_contents);
     	service.answerRegister(qrDto);
     	return "redirect:/questionList.do";
     }
     @RequestMapping("/answerModify.do")
-    public String answerModify(int rno, int qid, String ans_contents) {
-    	QuestionReplyDTO qrDto = new QuestionReplyDTO();
-    	qrDto.setRno(rno);
-    	qrDto.setAns_contents(ans_contents);
+	public String answerModify(/* int rno, int qid, String ans_contents */QuestionReplyDTO qrDto) {
+		/*
+		 * QuestionReplyDTO qrDto = new QuestionReplyDTO(); qrDto.setRno(rno);
+		 * qrDto.setAns_contents(ans_contents);
+		 * qrDto.setAns_contents(ans_contents);
+		 * qrDto.setAns_contents(ans_contents);
+		 */
     	service.answerModify(qrDto);
-    	return "redirect:/questionInfo.do?qid="+qid;
+    	return "redirect:/quesInfo.do?qid="+qrDto.getQid();
     }
    
     @RequestMapping("/answerDelete.do")

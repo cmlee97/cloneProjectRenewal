@@ -26,20 +26,38 @@
                            class = "btn btn-sm btn-dark m-3">리스트</a>
     </div>
     <hr class="container mt-3">
-	<form action="<c:url value='/admin/answerRegister.do'/>" method="post">
-      <input type='hidden' name='qid' value='${qDto.qid}'>
-      <input type='hidden' name='q_writer' value='${qDto.q_writer}'>
-      <div class="mt-3 mb-3">
-        <textarea class="w-100 p-2" id="ans_contents" name="ans_contents" placeholder="답변을 입력하세요"></textarea>
-      </div>
-      <div class="text-center">
-        <input type="button" class="btn btn-primary btn-sm" value="답변 등록"/>
-      </div>
-    </form>  
-        <div class="mt-5 mb-3 d-flex justify-content-between">
+    <div class="mt-5 mb-3 d-flex justify-content-between">
             <h6><i class="fa fa-comments-o"></i> 답변</h6>
-        </div>
-	<c:if test="${qDto.ques_state != '문의사항 확인중'}">
+    </div>
+  <%--   <c:if test="${qrDto == null}">
+		<form action="<c:url value='/admin/answerRegister.do'/>" method="post">
+	</c:if>
+    <c:if test="${qrDto != null}">
+		<form action="<c:url value='/admin/answerModify.do'/>" method="post">
+	</c:if> --%>
+      <input type='hidden' id="qid" name='qid' value='${qDto.qid}'>
+      <input type='hidden' id="q_writer" name='q_writer' value='${qDto.q_writer}'>
+      <div class="mt-3 mb-3">
+        <textarea class="w-100 p-2" id="ans_contents" name="ans_contents" placeholder="${qrDto.ans_contents!=null ? qrDto.ans_contents : '답변을 등록하세요'}"></textarea>
+      </div>
+      <c:if test="${qrDto != null}">
+	      <div class="mt-3 mb-3">
+	        <h6>${qrDto.anw_reg_date}</h6>
+	      </div>
+      </c:if>
+      <c:if test="${qrDto.rno == null}">
+	      <div class="text-center">
+	        <input type="button" class="btn btn-primary btn-sm" id="answer_reg" onclick="register()" value="답변 등록"/>
+	      </div>
+      </c:if>
+      <c:if test="${qrDto.rno != null}">
+      	<div class="text-center">
+	        <input type="button" class="btn btn-primary btn-sm" id="answer_reg" value="답변 수정"/>
+	    </div>
+      </c:if>
+<!--     </form>   -->
+        
+	<%-- <c:if test="${qDto.ques_state != '문의사항 확인중'}">
         <ul class="p-0 replyArea" style="list-style:none">
             <li class="mb-2 p-0">
                 <div class="form-control">
@@ -50,7 +68,7 @@
                 </div>
             </li>
         </ul>
-	</c:if>
+	</c:if> --%>
         
 </div>
 
@@ -65,7 +83,7 @@
 		
         function displayList(){
             let str = "";
-            replyFunc.getList(qid:qidValue, function(data){
+            replyFunc.getList({qid:qidValue}, function(data){
                 let answer = data.answer;
                 //답변이 있는 경우
                 for(let i=0; i<list.length; i++){
@@ -73,24 +91,25 @@
                         +'<div class="d-flex justify-content-between">'
                         +'<h6>'+answer.replyer+'</h6><span>'+replyFunc.showDateTime(answer.anw_reg_date)+'</span>'
                         +'</div>'
-                        +'<p id="answerContents'+i+"'>'+answer.ans_contents+'</p>'
+                        +'<p id="answerContents'+i+'">'+answer.ans_contents+'</p>'
                        	+'<div onclick="answerModify('+answer.rno+','+qidValue+','+i+')" class="btn btn-primary btn-sm" value="수정"></div>'
                         +'<a href="/answerDelete.do?rno='+answer.rno+'&qid='+qidValue+'" class="btn btn-primary btn-sm" value="삭제"/>'
                         +'</div>'
                         +'</li>';
                 }
-             }
                 replyArea.html(str);
                 showPgNavi(data);
             });
         }//displayList
        
     })
-    function answerModify(int rno, int qidValue, int num){
-    	let answerContents = document.getElementById('answerContents'+i);
-    	
-    	location.href="/answerModify.do?rno="+rno+"&qid="+qidValue+"&ans_contents="+answerContents;
-    	
+
+	function register(){
+    	//let qidValue = '<c:out value="${qDto.qid}"/>';
+    	let qid = document.getElementById('qid').value;
+    	let q_writer = document.getElementById('q_writer').value;
+    	let ans_contents = document.getElementById('ans_contents').value;
+    	location.href="/shop2/admin/answerRegister.do?qid="+qid+"&q_writer="+q_writer+"&ans_contents="+ans_contents;
     }
 </script>
   <%@ include file="inc/admin_footer.jsp" %>

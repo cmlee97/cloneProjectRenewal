@@ -36,7 +36,6 @@
       <th>공개여부</th>
       <th>등록일</th>
       <th>진행상태</th>
-      <th></th>
     </tr>
     </thead>
     <tbody>
@@ -50,7 +49,6 @@
         <td>${dto.ques_state=="open" ? '공개' : '비공개'}</td>
         <td>${dto.reg_date}</td>
         <td>${dto.ans_state}</td>
-        <td><a class="btn btn-success">답변등록</a></td>
       </tr>
       <c:set var="rowNum" value="${rowNum - 1}"/>
     </c:forEach>

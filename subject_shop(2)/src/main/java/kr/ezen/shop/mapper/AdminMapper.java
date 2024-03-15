@@ -65,4 +65,8 @@ public interface AdminMapper {
 	void stateChange(int qid);	
 	//문의사항 수정
 	void answerModify(QuestionReplyDTO qrDto);
+	//문의사항 답변 조회
+	QuestionReplyDTO answer(int qid);
+	//문의사항 개수 조회
+	int answerCount(int qid);
 }

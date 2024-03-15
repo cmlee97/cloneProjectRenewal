@@ -1,6 +1,4 @@
 let replyFunc = (() => {
-    //댓글 조회
-
     //게시물 별 리스트
     function getList(param){
         let qid =param.qid;

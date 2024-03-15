@@ -53,5 +53,7 @@ public interface AdminService {
 	void answerDelete(int rno, int qid);
 	//문의사항 수정
 	void answerModify(QuestionReplyDTO qrDto);
+	//문의사항 답변 조회
+	QuestionReplyDTO answer(int qid);
 
 }
