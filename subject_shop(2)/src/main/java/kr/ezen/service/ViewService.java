@@ -6,6 +6,7 @@ import kr.ezen.shop.domain.MemberDTO;
 import kr.ezen.shop.domain.PageDTO;
 import kr.ezen.shop.domain.ProductDTO;
 import kr.ezen.shop.domain.QuestionDTO;
+import kr.ezen.shop.domain.QuestionReplyDTO;
 
 import org.springframework.stereotype.Service;
 
@@ -42,4 +43,6 @@ public interface ViewService {
     void quesModify(QuestionDTO qDto);
     //문의사항 삭제
     void questionRemove(int qid);
+    //문의사항 답변조회
+	QuestionReplyDTO reply(int qid);
 }

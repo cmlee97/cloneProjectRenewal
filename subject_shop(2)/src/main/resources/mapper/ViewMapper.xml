@@ -44,9 +44,10 @@
         SELECT * FROM question_board WHERE qid=#{qid}
     </select>
     <update id="quesModify" parameterType="questionDTO">
-        UPDATE question_board SET q_subject=#{q_subject}, q_contents=#{q_contents} WHERE qid=#{qid}
+        UPDATE question_board SET q_subject=#{q_subject}, q_contents=#{q_contents}, ques_option=#{ques_option},
+        ques_state=#{ques_state} WHERE qid=#{qid}
     </update>
-        <delete id="questionRemove">
+    <delete id="questionRemove">
         DELETE FROM question_board WHERE qid=#{qid}
     </delete>
         <select id="totalQuesCnt" resultType="Integer">
@@ -60,4 +61,8 @@
     	<if test = "ques_option.equals('all')">
     	</if>
     </sql>
+    <select id="reply" parameterType="Integer" resultType="questionReplyDTO">
+    	 SELECT * FROM question_answer
+    	 WHERE qid = #{qid}
+    </select>
 </mapper>

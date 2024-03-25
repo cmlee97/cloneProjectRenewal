@@ -29,23 +29,19 @@
     </ul>
   </aside>
     <div class="container col-sm-9 mb-4">
-    <h2 class="mb-2">분류</h2>
-   	<div class="d-flex mb-4">
-	  <div class="form-check mr-3">
-	   <input class="form-check-input" type="checkbox" value="all" id="flexCheckDefault" checked>
-	   <label class="form-check-label" for="flexCheckDefault">
-	    <a class="dropdown-item" href='/shop2/view/questionInfo.do?viewPage=${paDto.viewPage}&cntPerPage=${paDto.cntPerPage}&q_writer=${paDto.q_writer}'>전체</a>
-	  </label>
+   	<div class="row justify-content-start">
+	  <div class="dropdown">
+	  	<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+	    문의사항 종류
+	  	</button>
+	  	<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+	    		<li><a class="dropdown-item" href='/shop2/view/questionInfo.do?q_writer=${sessionScope.loginDto.id}&viewPage=${paDto.viewPage}&cntPerPage=${paDto.cntPerPage}'>전체</a></li>
+	  		<c:forEach var="opspec" items="${opspec}">
+	    		<li><a class="dropdown-item" href='/shop2/view/questionInfo.do?q_writer=${sessionScope.loginDto.id}&viewPage=${paDto.viewPage}&cntPerPage=${paDto.cntPerPage}&ques_option=${opspec.name()}'>${opspec.value}</a></li>
+	  		</c:forEach>
+	  	</ul>
 	  </div>
-	  <c:forEach var="opspec" items="${opspec}">
-		  <div class="form-check mr-3">
-		   <input class="form-check-input" type="checkbox" value="${opspec.name()}" id="flexCheckDefault">
-		   <label class="form-check-label" for="flexCheckChecked">
-		    <a class="dropdown-item" href='/shop2/view/questionInfo.do?viewPage=${paDto.viewPage}&cntPerPage=${paDto.cntPerPage}&q_writer=${paDto.q_writer}&ques_option=${opspec.name()}'>${opspec.value}</a>
-		   </label>
-		  </div>
-	  </c:forEach>
-	  </div>
+  </div>
    	
    	<table class="table">
     <thead class="table-dark text-center">

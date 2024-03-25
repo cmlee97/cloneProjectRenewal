@@ -6,6 +6,7 @@ import kr.ezen.shop.domain.MemberDTO;
 import kr.ezen.shop.domain.PageDTO;
 import kr.ezen.shop.domain.ProductDTO;
 import kr.ezen.shop.domain.QuestionDTO;
+import kr.ezen.shop.domain.QuestionReplyDTO;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -43,4 +44,6 @@ public interface ViewMapper {
     void quesModify(QuestionDTO qDto);
     //문의사항 삭제
     void questionRemove(int qid);
+    //문의사항 답변 조회
+	QuestionReplyDTO reply(int qid);
 }

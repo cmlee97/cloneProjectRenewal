@@ -127,31 +127,26 @@ public class ViewController {
 	     model.addAttribute("opspec", opspec);
 		 model.addAttribute("quesinfo", quesinfo);
 		 model.addAttribute("paDto", paDto);
+		 QuestionReplyDTO replyDto = service.reply(qid);
+		 model.addAttribute("replyDto", replyDto);
 		 return "/view/myQuestioninfo";
 	 }
-	 @PostMapping("/quesModify.do")
+	 @RequestMapping("/quesModify.do")
 	    public String quesModify(QuestionDTO qDto, @ModelAttribute("paDto") PageDTO paDto
 	            , RedirectAttributes rttr){
 	        service.quesModify(qDto);
 	        rttr.addAttribute("viewPage",paDto.getViewPage());
 	        rttr.addAttribute("cntPerPage",paDto.getCntPerPage());
-	        return "redirect:/view/questionList.do";
+	        return "redirect:/view/questionInfo.do?q_writer="+qDto.getQ_writer();
 	    }
 	 @RequestMapping("/questionRemove.do")
-	    public String questionRemove(int qid, @ModelAttribute("paDto") PageDTO paDto
+	    public String questionRemove(int qid, @ModelAttribute("paDto") PageDTO paDto, String q_writer
 	            , RedirectAttributes rttr){
 	        service.questionRemove(qid);
 	        rttr.addAttribute("viewPage",paDto.getViewPage());
 	        rttr.addAttribute("cntPerPage",paDto.getCntPerPage());
-	        return "redirect:/view/questionList.do";
+	        return "redirect:/view/questionInfo.do?q_writer="+q_writer;
 	    }
-//	 @RequestMapping("/quesInfo.do")
-//	    public String quesInfo(int qid, Model model, PageDTO paDto , String code){
-//	        QuestionDTO qDto = service.quesInfo(qid);
-//	        model.addAttribute("qDto", qDto);
-//	        model.addAttribute("paDto", paDto);
-//	        return "/customerService/csQuestionInfo";
-//	    }
     //장바구니
     @GetMapping("cart.do")
     public String cart(Model model){

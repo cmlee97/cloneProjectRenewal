@@ -6,6 +6,7 @@ import kr.ezen.shop.domain.MemberDTO;
 import kr.ezen.shop.domain.PageDTO;
 import kr.ezen.shop.domain.ProductDTO;
 import kr.ezen.shop.domain.QuestionDTO;
+import kr.ezen.shop.domain.QuestionReplyDTO;
 import kr.ezen.shop.mapper.AdminMapper;
 import kr.ezen.shop.mapper.ViewMapper;
 import lombok.SneakyThrows;
@@ -87,5 +88,10 @@ public class ViewServiceImpl implements ViewService {
     public void questionRemove(int qid) {
         mapper.questionRemove(qid);
     }
+
+	@Override
+	public QuestionReplyDTO reply(int qid) {
+		return mapper.reply(qid);
+	}
 	
 }
