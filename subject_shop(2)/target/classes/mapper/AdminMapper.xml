@@ -89,7 +89,7 @@
     	SELECT * FROM question_board
     	WHERE qid=#{qid}
     </select>
-    <select id="answerCount" parameterType="Integer" resultType="Integer">
+	<select id="answerCount" parameterType="Integer" resultType="Integer">
     	SELECT count(*) FROM question_answer
     	WHERE qid=#{qid}
     </select>

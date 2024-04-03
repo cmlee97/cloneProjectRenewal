@@ -40,4 +40,13 @@
     <update id="plusHit">
         UPDATE question_board SET q_hit=q_hit+1 WHERE qid=#{qid}
     </update>
+    
+    <select id="answerCount" parameterType="Integer" resultType="Integer">
+    	SELECT count(*) FROM question_answer
+    	WHERE qid=#{qid}
+    </select>
+    <select id="answer" parameterType="Integer" resultType="questionReplyDTO">
+    	SELECT * FROM question_answer
+    	WHERE qid=#{qid}
+    </select>
 </mapper>

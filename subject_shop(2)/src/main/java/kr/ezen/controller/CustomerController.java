@@ -6,6 +6,7 @@ import kr.ezen.shop.domain.CategoryDTO;
 import kr.ezen.shop.domain.NoticeDTO;
 import kr.ezen.shop.domain.PageDTO;
 import kr.ezen.shop.domain.QuestionDTO;
+import kr.ezen.shop.domain.QuestionReplyDTO;
 import kr.ezen.shop.util.QuestionOption;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,6 @@ public class CustomerController {
     
     @RequestMapping("/questionList.do")
     public String questionList(Model model, @ModelAttribute("paDto") PageDTO paDto, String ques_option){
-    	System.out.println(ques_option);
     	if(paDto.getQues_option()==null)
     	paDto.setQues_option("all");
         List<QuestionDTO> list = service.questionList(paDto);
@@ -69,6 +69,13 @@ public class CustomerController {
         QuestionDTO qDto = service.quesInfo(qid);
         model.addAttribute("qDto", qDto);
         model.addAttribute("paDto", paDto);
+        QuestionReplyDTO qrDto = service.answer(qid);
+        if(qrDto!=null)
+        model.addAttribute("qrDto", qrDto);
+        else {
+        	qrDto.setRno(0);
+        	model.addAttribute("qrDto", qrDto);
+        }
         return "/customerService/csQuestionInfo";
     }
 //    @RequestMapping("/quesUpdate.do")

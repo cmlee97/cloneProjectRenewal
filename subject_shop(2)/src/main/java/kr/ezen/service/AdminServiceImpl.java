@@ -133,10 +133,10 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public QuestionReplyDTO answer(int qid) {
-		QuestionReplyDTO qrDto = new QuestionReplyDTO();
-		int ans_count = mapper.answerCount(qrDto.getQid());
-		if(ans_count!=0)
-		qrDto = mapper.answer(qid);
+		 QuestionReplyDTO qrDto = new QuestionReplyDTO();
+		 int ans_count = mapper.answerCount(qid); 
+		 if(ans_count!=0)
+			qrDto = mapper.answer(qid);
 		return qrDto;
 	}
 }

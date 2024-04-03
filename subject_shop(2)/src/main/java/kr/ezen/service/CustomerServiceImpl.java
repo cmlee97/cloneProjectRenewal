@@ -3,6 +3,7 @@ package kr.ezen.service;
 import kr.ezen.shop.domain.NoticeDTO;
 import kr.ezen.shop.domain.PageDTO;
 import kr.ezen.shop.domain.QuestionDTO;
+import kr.ezen.shop.domain.QuestionReplyDTO;
 import kr.ezen.shop.mapper.CustomerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,5 +44,14 @@ public class CustomerServiceImpl implements CustomerService{
     public QuestionDTO quesUpdate(int qid) {
         return mapper.quesInfo(qid);
     }
+
+	@Override
+	public QuestionReplyDTO answer(int qid) {
+		QuestionReplyDTO qrDto = new QuestionReplyDTO();
+		 int ans_count = mapper.answerCount(qid); 
+		 if(ans_count!=0)
+			qrDto = mapper.answer(qid);
+		return qrDto;
+	}
 
 }

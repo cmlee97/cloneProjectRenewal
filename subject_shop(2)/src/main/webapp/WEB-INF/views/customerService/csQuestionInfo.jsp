@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="inc/cs_header.jsp" %>
 <div class="container w-50 mt-5 p-5">
 
@@ -17,8 +18,8 @@
     <a href="<c:url value='/view/questionList.do?viewPage=${paDto.viewPage}&cntPerPage=${paDto.cntPerPage}'/>"
                            class = "btn btn-sm btn-dark m-3">리스트</a>
     </div>
-		<c:if test="${qDto.ques_state!='문의사항 확인중'}">
-        <div class="mt-5 mb-3 d-flex justify-content-between">
+	<c:if test="${qDto.ques_state!='문의사항 확인중'}">
+        <!-- <div class="mt-5 mb-3 d-flex justify-content-between">
             <h6><i class="fa fa-comments-o"></i> 답변</h6>
         </div>
         <ul class="p-0 replyArea" style="list-style:none">
@@ -30,8 +31,17 @@
                     <p>댓글 테스트 ..........</p>
                 </div>
             </li>
-        </ul>
-	</c:if>
+        </ul> -->
+        <div class="mt-5 mb-3 d-flex justify-content-between">
+            <h6><i class="fa fa-comments-o"></i> 답변</h6>
+	    </div>
+	      <div class="mt-3 mb-3">
+	        <h7 class="w-100 p-2" id="ans_contents" name="ans_contents" >${qrDto.ans_contents!=null ? qrDto.ans_contents : ''}</h7>
+	      </div>
+	      <div class="mt-3 mb-3 d-flex justify-content-end">
+	        <h6><fmt:formatDate pattern="yyyy년 MM월 dd일" value="${qrDto.anw_reg_date}"/></h6>
+	      </div>
+   	</c:if>
         
 </div>
 

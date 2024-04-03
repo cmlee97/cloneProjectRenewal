@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <c:if test="${sessionScope.adminloginDto.id==null}">
   <%@ include file="admin_login.jsp" %>
 </c:if>
@@ -22,53 +24,35 @@
     </div>
     <div class="d-flex mb-4 justify-content-center">
   
-    <a href="<c:url value='javascript:history.bakck()'/>"
+    <a href="<c:url value='javascript:history.back()'/>"
                            class = "btn btn-sm btn-dark m-3">리스트</a>
     </div>
     <hr class="container mt-3">
     <div class="mt-5 mb-3 d-flex justify-content-between">
             <h6><i class="fa fa-comments-o"></i> 답변</h6>
     </div>
-  <%--   <c:if test="${qrDto == null}">
-		<form action="<c:url value='/admin/answerRegister.do'/>" method="post">
-	</c:if>
-    <c:if test="${qrDto != null}">
-		<form action="<c:url value='/admin/answerModify.do'/>" method="post">
-	</c:if> --%>
+
       <input type='hidden' id="qid" name='qid' value='${qDto.qid}'>
       <input type='hidden' id="q_writer" name='q_writer' value='${qDto.q_writer}'>
+      <input type='hidden' id="q_writer" name='rno' value='${qrDto.rno}'>
       <div class="mt-3 mb-3">
-        <textarea class="w-100 p-2" id="ans_contents" name="ans_contents" placeholder="${qrDto.ans_contents!=null ? qrDto.ans_contents : '답변을 등록하세요'}"></textarea>
+        <textarea class="w-100 p-2" id="ans_contents" name="ans_contents">${qrDto.ans_contents!=null ? qrDto.ans_contents : '답변을 등록하세요'}</textarea>
       </div>
-      <c:if test="${qrDto != null}">
 	      <div class="mt-3 mb-3">
-	        <h6>${qrDto.anw_reg_date}</h6>
+	        <h6><fmt:formatDate pattern="yyyy년 MM월 dd일" value="${qrDto.anw_reg_date}"/></h6>
 	      </div>
-      </c:if>
-      <c:if test="${qrDto.rno == null}">
+      <c:if test="${qrDto.rno == 0}">
 	      <div class="text-center">
 	        <input type="button" class="btn btn-primary btn-sm" id="answer_reg" onclick="register()" value="답변 등록"/>
 	      </div>
       </c:if>
-      <c:if test="${qrDto.rno != null}">
+      <c:if test="${qrDto.rno != 0}">
       	<div class="text-center">
-	        <input type="button" class="btn btn-primary btn-sm" id="answer_reg" value="답변 수정"/>
+	        <input type="button" class="btn btn-primary btn-sm" onclick="modify()" id="answer_modify" value="답변 수정"/>
+	        <input type="button" class="btn btn-danger btn-sm" onclick="del()" id="answer_del" value="답변 삭제"/>
 	    </div>
       </c:if>
-<!--     </form>   -->
-        
-	<%-- <c:if test="${qDto.ques_state != '문의사항 확인중'}">
-        <ul class="p-0 replyArea" style="list-style:none">
-            <li class="mb-2 p-0">
-                <div class="form-control">
-                    <div class="d-flex justify-content-between">
-                        <h6>홍길동</h6><span>2022-12-12</span>
-                    </div>
-                    <p>댓글 테스트 ..........</p>
-                </div>
-            </li>
-        </ul>
-	</c:if> --%>
+
         
 </div>
 
@@ -105,11 +89,21 @@
     })
 
 	function register(){
-    	//let qidValue = '<c:out value="${qDto.qid}"/>';
     	let qid = document.getElementById('qid').value;
     	let q_writer = document.getElementById('q_writer').value;
     	let ans_contents = document.getElementById('ans_contents').value;
     	location.href="/shop2/admin/answerRegister.do?qid="+qid+"&q_writer="+q_writer+"&ans_contents="+ans_contents;
+    }
+	function modify(){
+    	let qid = document.getElementById('qid').value;
+    	let rno = document.getElementById('rno').value;
+    	let ans_contents = document.getElementById('ans_contents').value;
+    	location.href="/shop2/admin/answerModify.do?qid="+qid+"&rno="+rno+"&ans_contents="+ans_contents;
+    }
+	function del(){
+    	let qid = document.getElementById('qid').value;
+    	let rno = document.getElementById('rno').value;
+    	location.href="/shop2/admin/answerDelete.do?qid="+qid+"&rno="+rno;
     }
 </script>
   <%@ include file="inc/admin_footer.jsp" %>

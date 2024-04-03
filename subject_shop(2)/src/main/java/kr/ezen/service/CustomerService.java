@@ -3,6 +3,8 @@ package kr.ezen.service;
 import kr.ezen.shop.domain.NoticeDTO;
 import kr.ezen.shop.domain.PageDTO;
 import kr.ezen.shop.domain.QuestionDTO;
+import kr.ezen.shop.domain.QuestionReplyDTO;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,5 +21,7 @@ public interface CustomerService {
     QuestionDTO quesInfo(int qid);
     //문의사항 게시물 업데이트시 정보
     QuestionDTO quesUpdate(int qid);
+    //문의사항 답변 조회
+	QuestionReplyDTO answer(int qid);
 
 }
