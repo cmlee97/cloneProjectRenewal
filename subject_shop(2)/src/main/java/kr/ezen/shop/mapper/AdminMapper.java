@@ -62,7 +62,9 @@ public interface AdminMapper {
 	//문의사항답변 삭제
 	void answerDelete(int rno);
 	//문의사항답변시 문의사항상태 변경
-	void stateChange(int qid);	
+	void stateChangeReg(int qid);	
+	//문의사항답변 삭제시 문의사항상태 변경
+	void stateChangeDel(int qid);	
 	//문의사항 수정
 	void answerModify(QuestionReplyDTO qrDto);
 	//문의사항 답변 조회

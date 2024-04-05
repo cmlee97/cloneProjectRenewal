@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="inc/view_header.jsp" %>
 <style>
   a{
@@ -74,7 +75,7 @@
             <li class="mb-2 p-0">
                 <div class="form-control">
                     <div class="d-flex justify-content-between">
-                        <h6>${replyDto.replyer}</h6><span>${replyDto.anw_reg_date}</span>
+                        <h6>${replyDto.replyer}</h6><span><fmt:formatDate pattern="yyyy년 MM월 dd일" value="${replyDto.anw_reg_date}"/></span>
                     </div>
                     <p>${replyDto.ans_contents}</p>
                 </div>

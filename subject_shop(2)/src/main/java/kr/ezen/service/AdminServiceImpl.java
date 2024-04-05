@@ -116,13 +116,13 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public void answerRegister(QuestionReplyDTO qrDto) {
 		mapper.answerRegister(qrDto);
-		mapper.stateChange(qrDto.getQid());
+		mapper.stateChangeReg(qrDto.getQid());
 	}
 
 	@Override
 	public void answerDelete(int rno, int qid) {
 		mapper.answerDelete(rno);
-		mapper.stateChange(qid);
+		mapper.stateChangeDel(qid);
 	}
 
 	@Override

@@ -168,13 +168,8 @@ public class AdminController {
     	return "redirect:/admin/questionList.do";
     }
     @RequestMapping("/answerModify.do")
-	public String answerModify(/* int rno, int qid, String ans_contents */QuestionReplyDTO qrDto) {
-		/*
-		 * QuestionReplyDTO qrDto = new QuestionReplyDTO(); qrDto.setRno(rno);
-		 * qrDto.setAns_contents(ans_contents);
-		 * qrDto.setAns_contents(ans_contents);
-		 * qrDto.setAns_contents(ans_contents);
-		 */
+	public String answerModify(QuestionReplyDTO qrDto) {
+		
     	service.answerModify(qrDto);
     	return "redirect:/admin/quesInfo.do?qid="+qrDto.getQid();
     }
@@ -182,6 +177,6 @@ public class AdminController {
     @RequestMapping("/answerDelete.do")
     public String answerDelete(int rno, int qid) {
     	service.answerDelete(rno, qid);
-    	return "redirect:/admin/questionInfo.do?qid="+qid;
+    	return "redirect:/admin/questionList.do";
     }
 }

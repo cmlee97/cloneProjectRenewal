@@ -34,7 +34,7 @@
 
       <input type='hidden' id="qid" name='qid' value='${qDto.qid}'>
       <input type='hidden' id="q_writer" name='q_writer' value='${qDto.q_writer}'>
-      <input type='hidden' id="q_writer" name='rno' value='${qrDto.rno}'>
+      <input type='hidden' id="rno" name='rno' value='${qrDto.rno}'>
       <div class="mt-3 mb-3">
         <textarea class="w-100 p-2" id="ans_contents" name="ans_contents">${qrDto.ans_contents!=null ? qrDto.ans_contents : '답변을 등록하세요'}</textarea>
       </div>
@@ -49,6 +49,7 @@
       <c:if test="${qrDto.rno != 0}">
       	<div class="text-center">
 	        <input type="button" class="btn btn-primary btn-sm" onclick="modify()" id="answer_modify" value="답변 수정"/>
+	       <%--  <a href="/answerModify.do?qid=${qDto.qid}&rno=${qrDto.rno}&ans_contents=${qrDto.ans_contents}" class="btn btn-primary btn-sm">답변 수정</a> --%>
 	        <input type="button" class="btn btn-danger btn-sm" onclick="del()" id="answer_del" value="답변 삭제"/>
 	    </div>
       </c:if>
